@@ -1,0 +1,28 @@
+repos:
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.6.9
+    hooks:
+      - id: ruff
+        args: [--fix]
+        files: ^apps/api/
+
+  - repo: https://github.com/psf/black
+    rev: 24.8.0
+    hooks:
+      - id: black
+        files: ^apps/api/
+
+  - repo: local
+    hooks:
+      - id: eslint
+        name: eslint (apps/web)
+        entry: bash -c 'cd apps/web && npx eslint .'
+        language: system
+        files: ^apps/web/.*\.(ts|tsx)$
+        pass_filenames: false
+      - id: prettier
+        name: prettier (apps/web)
+        entry: bash -c 'cd apps/web && npx prettier --check .'
+        language: system
+        files: ^apps/web/.*\.(ts|tsx|json|css)$
+        pass_filenames: false
